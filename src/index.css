@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 240 5% 96%;
+    --card: 0 0% 7%;
+    --card-foreground: 240 5% 96%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 240 5% 96%;
+    --primary: 43 74% 52%;
+    --primary-foreground: 0 0% 2%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 168 76% 50%;
+    --accent-foreground: 0 0% 2%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 43 74% 52%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 7%;
+    --sidebar-foreground: 240 5% 96%;
+    --sidebar-primary: 43 74% 52%;
+    --sidebar-primary-foreground: 0 0% 2%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 240 5% 96%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 43 74% 52%;
+  }
+
+  .light {
+    --background: 0 0% 98%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 43 74% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 168 76% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 43 74% 45%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 43 74% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 43 74% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  code, pre, .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .orbit-gradient-text {
+    background: linear-gradient(135deg, #D4AF37 0%, #2DD4BF 50%, #D4AF37 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .spotlight-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 212, 191, 0.06), transparent 40%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  .glass-card {
+    background: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(244, 244, 245, 0.08);
+  }
+
+  .shimmer-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-border::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+    z-index: -1;
+    border-radius: inherit;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .gradient-border-pro {
+    position: relative;
+    border-radius: 0.75rem;
+  }
+
+  .gradient-border-pro::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #D4AF37, #2DD4BF, #D4AF37);
+    background-size: 300% 300%;
+    animation: gradientRotate 4s linear infinite;
+    z-index: -1;
+  }
+
+  @keyframes gradientRotate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marqueeScroll 40s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .marquee-track-reverse {
+    display: flex;
+    animation: marqueeScrollReverse 45s linear infinite;
+  }
+
+  .marquee-track-reverse:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marqueeScrollReverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  .typewriter-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: #D4AF37;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .orb-ring {
+    position: absolute;
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    border-radius: 50%;
+    animation: orbPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes orbPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+  }
+
+  .score-ring-circle {
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+
+  .page-transition-enter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .page-transition-exit {
+    opacity: 1;
+  }
+
+  .page-transition-exit-active {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ─── Resume Template Styles ─── */
+.resume-modern { font-family: 'Inter', sans-serif; max-width: 210mm; margin: 0 auto; padding: 40px; background: white; color: #1a1a2e; }
+.resume-modern h1 { font-size: 28px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+.resume-modern h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #2dd4bf; margin: 20px 0 10px; border-bottom: 2px solid #2dd4bf; padding-bottom: 4px; }
+.resume-modern h3 { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+.resume-modern p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; color: #334155; }
+.resume-modern ul { margin: 6px 0; padding-left: 18px; }
+.resume-modern li { font-size: 13px; line-height: 1.5; margin-bottom: 3px; color: #334155; }
+.resume-modern strong { font-weight: 600; color: #1a1a2e; }
+
+.resume-classic { font-family: 'Georgia', serif; max-width: 210mm; margin: 0 auto; padding: 50px; background: white; color: #222; }
+.resume-classic h1 { font-size: 26px; font-weight: 400; text-align: center; letter-spacing: 2px; margin-bottom: 8px; color: #1a1a1a; }
+.resume-classic h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin: 25px 0 12px; color: #333; border-bottom: 1px solid #999; padding-bottom: 3px; }
+.resume-classic h3 { font-size: 15px; font-weight: 600; font-style: italic; margin-bottom: 2px; }
+.resume-classic p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; text-align: justify; }
+.resume-classic ul { margin: 6px 0; padding-left: 20px; }
+.resume-classic li { font-size: 13px; line-height: 1.5; margin-bottom: 4px; }
+.resume-classic strong { font-weight: 600; }
+
+.resume-technical { font-family: 'JetBrains Mono', 'Consolas', monospace; max-width: 210mm; margin: 0 auto; padding: 40px; background: white; color: #1e1e2e; }
+.resume-technical h1 { font-size: 24px; font-weight: 700; color: #d4af37; margin-bottom: 4px; }
+.resume-technical h2 { font-size: 14px; font-weight: 700; color: #2dd4bf; margin: 22px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+.resume-technical h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.resume-technical p { font-size: 12px; line-height: 1.6; margin-bottom: 8px; }
+.resume-technical ul { margin: 6px 0; padding-left: 16px; }
+.resume-technical li { font-size: 12px; line-height: 1.5; margin-bottom: 3px; }
+.resume-technical strong { font-weight: 600; }
+
+.resume-creative { font-family: 'Space Grotesk', sans-serif; max-width: 210mm; margin: 0 auto; padding: 40px; background: white; color: #2d3436; }
+.resume-creative h1 { font-size: 32px; font-weight: 700; color: #667eea; margin-bottom: 4px; }
+.resume-creative h2 { font-size: 16px; font-weight: 700; color: #667eea; margin: 25px 0 12px; display: inline-block; border-bottom: 3px solid #764ba2; padding-bottom: 2px; }
+.resume-creative h3 { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+.resume-creative p { font-size: 13px; line-height: 1.7; margin-bottom: 8px; }
+.resume-creative ul { margin: 6px 0; padding-left: 18px; }
+.resume-creative li { font-size: 13px; line-height: 1.5; margin-bottom: 4px; }
+.resume-creative strong { font-weight: 600; }

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orbit-resume
+  labels:
+    app: orbit-resume
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orbit-resume
+  template:
+    metadata:
+      labels:
+        app: orbit-resume
+    spec:
+      containers:
+        - name: app
+          image: orbit-resume:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
+          envFrom:
+            - secretRef:
+                name: orbit-secrets
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
